@@ -1,0 +1,36 @@
+---
+  - name: set bash_profile
+    template: src=roles/app/templates/bash_profile.j2 dest=~/.bash_profile
+    
+  - name: middlewares
+    become: True
+    yum: name={{ item }} state=latest
+    with_items:
+      - "@Development tools"
+      - git
+      - elinks
+      - mysql
+      - mysql-devel
+      - openssl-devel
+      - readline-devel
+      - libcurl-devel
+  
+  - name: install rbenv
+    git: repo=https://github.com/sstephenson/rbenv.git dest=~/.rbenv
+  
+  - name: install rbenv-build
+    git: repo=https://github.com/sstephenson/ruby-build.git dest=~/.rbenv/plugins/ruby-build
+    
+  - name: install ruby
+    shell: bash -lc "CONFIGURE_OPTS="--disable-install-rdoc" rbenv install -s {{ ruby_version }}"
+  
+  - name: set global version for ruby
+    shell: bash -lc "rbenv global {{ ruby_version }} && rbenv rehash"
+
+  - name: install crond
+    become: True
+    yum: name=crontabs state=latest
+
+  - name: crond
+    become: True
+    service: name=crond state=started enabled=yes

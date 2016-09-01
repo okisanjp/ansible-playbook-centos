@@ -1,0 +1,21 @@
+- name: set .bashrc
+  template: src=roles/common/templates/bashrc.j2 dest=~/.bashrc
+
+- name: install middlewares
+  become: True
+  yum: name={{ item }} state=latest
+  with_items:
+    - yum-plugin-changelog
+
+- name: set hostname
+  become: True
+  hostname: name={{ inventory_hostname }}
+  
+- name: set /etc/sysconfig/network
+  become: True
+  template: src=roles/common/templates/sysconfig_network.j2 dest=/etc/sysconfig/network
+  notify: restart network
+  
+- name: Set JST timezone
+  become: True
+  file: src=/usr/share/zoneinfo/Asia/Tokyo dest=/etc/localtime state=link force=yes

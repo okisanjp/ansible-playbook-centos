@@ -1,0 +1,6 @@
+---
+  - hosts: vagrant
+    
+    roles:
+      - common
+      - app

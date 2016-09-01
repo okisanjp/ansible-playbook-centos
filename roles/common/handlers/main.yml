@@ -1,0 +1,36 @@
+---
+  - name: restart named
+    become: True
+    service: name=named state=restarted
+  
+  - name: restart logrotate
+    become: True
+    command: /usr/sbin/logrotate /etc/logrotate.conf
+
+  - name: restart sshd
+    become: True
+    service: name=sshd state=restarted
+  
+  - name: restart network
+    become: True
+    service: name=network state=restarted
+
+  - name: restart ntpd
+    become: True
+    service: name=ntpd state=restarted
+  
+  - name: restart mysqld
+    become: True
+    service: name=mysqld state=restarted
+  
+  - name: restart httpd
+    become: True
+    service: name=httpd state=restarted
+
+  - name: restart nginx
+    become: True
+    service: name=nginx state=restarted
+  
+  - name: restart crond
+    become: True
+    service: name=crond state=restarted
