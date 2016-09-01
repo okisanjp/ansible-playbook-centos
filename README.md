@@ -12,7 +12,7 @@ ansible-playbook vagrant.yml
 
 vagrantのVMに接続するためのホスト名が`default`、接続に使う秘密鍵が`~/vm/.vagrant/machines/default/virtualbox/private_key`という前提で記述されています。
 
-環境ごとに書き換えて頂く必要がありますが、参考までに本環境での`vagrant ssh-config`実行結果を書いておきます
+要所については、環境ごとに書き換えて頂く必要がありますが、参考までに本環境での`vagrant ssh-config`実行結果を書いておきます
 
 ```
 Host default
